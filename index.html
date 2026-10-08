@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Namilkcat* ｜ 插畫・遊戲美術作品集</title>
+<meta name="description" content="Namilkcat*（草蛙）的插畫與遊戲美術作品集：角色設計、插畫、UI．平面設計與原創 IP。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FBF3EF;
+    --bg-deep: #F5E4DD;
+    --card: #FFFFFF;
+    --ink: #3E332F;
+    --ink-soft: #8A7871;
+    --rose: #E3968E;
+    --rose-deep: #D97C74;
+    --lavender: #B7A9DD;
+    --gold: #D8B379;
+    --line: rgba(62,51,47,0.10);
+    --shadow: 0 20px 45px -25px rgba(122, 84, 70, 0.35);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family:"Noto Sans TC", sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--rose); color:#fff; }
+
+  /* ---------- layout shell ---------- */
+  .shell{
+    display:flex;
+    min-height:100vh;
+  }
+
+  /* ---------- sidebar ---------- */
+  .sidebar{
+    width:220px;
+    flex-shrink:0;
+    background:var(--card);
+    border-right:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:36px 26px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    z-index:50;
+  }
+
+  .brand{ display:flex; flex-direction:column; align-items:center; gap:10px; width:100%; text-align:center; }
+
+  .brand-logo-img{
+    display:none;
+    width:64px;
+    height:64px;
+    object-fit:contain;
+  }
+
+  .brand-fallback-icon{ width:56px; height:56px; }
+
+  .brand-name{
+    font-family:"Cormorant Garamond", serif;
+    font-size:20px;
+    font-style:italic;
+    letter-spacing:0.03em;
+    color:var(--ink);
+    margin-top:4px;
+  }
+
+  .brand-sub{
+    font-family:"Noto Sans TC", sans-serif;
+    font-size:10.5px;
+    letter-spacing:.1em;
+    color:var(--ink-soft);
+  }
+
+  nav.mainnav{ margin-top:56px; display:flex; flex-direction:column; gap:4px; width:100%; }
+
+  nav.mainnav a{
+    text-decoration:none;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    letter-spacing:0.04em;
+    padding:11px 16px;
+    border-radius:999px;
+    transition:all .25s ease;
+    position:relative;
+  }
+
+  nav.mainnav a:hover{ color:var(--ink); background:var(--bg-deep); }
+
+  nav.mainnav a.active{
+    color:#fff;
+    background:linear-gradient(135deg, var(--rose), var(--rose-deep));
+    box-shadow:0 10px 20px -10px rgba(217,124,116,.6);
+  }
+
+  .sidebar-foot{ display:flex; flex-direction:column; align-items:center; gap:18px; width:100%; }
+
+  .socials{ display:flex; justify-content:center; gap:14px; width:100%; }
+
+  .socials a{
+    width:34px; height:34px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+    transition:all .25s ease;
+  }
+  .socials a:hover{ background:var(--rose); border-color:var(--rose); color:#fff; transform:translateY(-2px); }
+  .socials svg{ width:16px; height:16px; }
+
+  /* ---------- main ---------- */
+  main{ flex:1; min-width:0; }
+
+  section{ padding:0 64px; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:20px;
+    padding-bottom:20px;
+    overflow:hidden;
+  }
+
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:.55;
+    pointer-events:none;
+  }
+  .blob.b1{ width:520px; height:520px; right:-140px; top:-160px; background:radial-gradient(circle at 30% 30%, var(--bg-deep), transparent 70%); }
+  .blob.b2{ width:380px; height:380px; left:-120px; bottom:-140px; background:radial-gradient(circle at 60% 60%, var(--lavender), transparent 72%); opacity:.18; }
+
+  .sparkle{ position:absolute; color:var(--gold); opacity:.7; animation:twinkle 3.2s ease-in-out infinite; z-index:3; }
+  .sparkle svg{ width:100%; height:100%; }
+  @keyframes twinkle{ 0%,100%{ opacity:.25; transform:scale(.85);} 50%{ opacity:.9; transform:scale(1.05);} }
+
+  .hero-stage{
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:calc(100vh - 96px);
+  }
+
+  .hero-art{
+    position:absolute;
+    inset:0 0 0 17%;
+    border-radius:28px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,.5), transparent 45%),
+      linear-gradient(155deg, var(--bg-deep), var(--lavender) 120%);
+    box-shadow:var(--shadow);
+  }
+  .hero-art .hint{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:13px;
+    line-height:2;
+    padding:24px;
+  }
+  .hero-art .hint b{ display:block; font-family:"Cormorant Garamond", serif; font-style:italic; font-size:22px; color:var(--rose-deep); margin-bottom:6px; }
+  .hero-art img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:none;
+  }
+
+  .hero-text-card{
+    position:absolute;
+    left:0;
+    top:64%;
+    transform:translateY(-50%);
+    width:37%;
+    min-width:300px;
+    max-width:432px;
+    z-index:4;
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:26px;
+    padding:38px 36px;
+    box-shadow:0 30px 60px -32px rgba(122,84,70,.35);
+    animation:heroSlideIn 2.2s cubic-bezier(.16,.84,.44,1) .1s both;
+  }
+
+  @keyframes heroSlideIn{
+    from{ opacity:0; transform:translateY(-50%) translateX(-64px); }
+    to{ opacity:1; transform:translateY(-50%) translateX(0); }
+  }
+
+  .eyebrow{
+    font-family:"Cormorant Garamond", serif;
+    font-style:italic;
+    font-size:20px;
+    color:var(--rose-deep);
+    margin-bottom:6px;
+  }
+
+  .hero-title{
+    font-family:"Cormorant Garamond", serif;
+    font-weight:600;
+    font-size:clamp(42px, 5vw, 68px);
+    line-height:1;
+    color:var(--ink);
+    margin-bottom:20px;
+  }
+
+  .hero-desc{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.85;
+    max-width:380px;
+    margin-bottom:28px;
+  }
+
+  .hero-actions{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 26px;
+    border-radius:999px;
+    font-size:13.5px;
+    letter-spacing:.04em;
+    text-decoration:none;
+    cursor:pointer;
+    border:none;
+    transition:all .25s ease;
+  }
+
+  .btn-primary{
+    background:linear-gradient(135deg, var(--rose), var(--rose-deep));
+    color:#fff;
+    box-shadow:0 16px 30px -14px rgba(217,124,116,.7);
+  }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 20px 34px -14px rgba(217,124,116,.8); }
+
+  .btn-ghost{
+    color:var(--ink);
+    border:1px solid var(--line);
+    background:transparent;
+  }
+  .btn-ghost:hover{ background:var(--card); border-color:var(--rose); color:var(--rose-deep); }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:64px;
+    font-size:12px; letter-spacing:.18em; color:var(--ink-soft);
+    display:flex; align-items:center; gap:10px;
+    z-index:2;
+  }
+  .scroll-cue .line{ width:34px; height:1px; background:var(--ink-soft); }
+
+  /* ---------- section heading ---------- */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:40px;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .section-head h2{
+    font-family:"Cormorant Garamond", serif;
+    font-weight:600;
+    font-style:italic;
+    font-size:44px;
+    color:var(--ink);
+  }
+
+  .section-head .cn{
+    font-family:"Noto Serif TC", serif;
+    font-size:14px;
+    color:var(--ink-soft);
+    letter-spacing:.12em;
+  }
+
+  .filter-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .filter-btn{
+    padding:8px 18px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--card);
+    color:var(--ink-soft);
+    font-size:13px;
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .filter-btn:hover{ border-color:var(--rose); color:var(--rose-deep); }
+  .filter-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+  /* ---------- works grid ---------- */
+  .works{ padding-top:40px; padding-bottom:60px; }
+
+  .grid{
+    display:grid;
+    --col-gap:22px;
+    /* 每欄最小 240px；全螢幕時最多 4 欄（欄寬不會小於 容器寬÷4） */
+    grid-template-columns:repeat(auto-fill, minmax(max(240px, calc((100% - var(--col-gap) * 3) / 4 - 1px)), 1fr));
+    column-gap:var(--col-gap);
+    row-gap:44px;
+  }
+
+  .card{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    background:var(--card);
+    box-shadow:0 14px 30px -20px rgba(122,84,70,.35);
+    cursor:pointer;
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .card:hover{ transform:translateY(-6px); box-shadow:0 22px 40px -18px rgba(122,84,70,.45); }
+
+  .card .frame{
+    position:relative;
+    aspect-ratio:4/5;
+    width:100%;
+    background:linear-gradient(150deg, var(--bg-deep), #fff);
+    overflow:hidden;
+  }
+  .card .frame img{
+    position:absolute; inset:0;
+    width:100%; height:100%; object-fit:cover; object-position:center;
+    display:block; transition:transform .5s ease;
+  }
+  .card:hover .frame img{ transform:scale(1.06); }
+
+  .card .frame .placeholder{
+    position:absolute; inset:0;
+    text-align:center; color:var(--ink-soft); font-size:12px; padding:20px; line-height:1.9;
+  }
+  .card .frame .placeholder b{ display:block; color:var(--rose-deep); font-family:"Cormorant Garamond", serif; font-style:italic; font-size:18px; margin-bottom:6px; }
+
+  .card .cap{
+    padding:16px 18px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .card .cap h3{ font-size:14.5px; font-weight:500; }
+  .card .cap span{ font-size:11.5px; color:var(--rose-deep); background:var(--bg-deep); padding:4px 10px; border-radius:999px; }
+
+  /* ---------- about ---------- */
+  .about{ position:relative; overflow:hidden; padding-top:110px; padding-bottom:110px; }
+  .about-grid{
+    position:relative; z-index:2;
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:60px;
+    align-items:center;
+  }
+  .about-body{
+    background:rgba(255,255,255,.55);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:22px;
+    padding:26px 30px 8px;
+    max-width:560px;
+    box-shadow:0 30px 60px -32px rgba(122,84,70,.35);
+  }
+  .about-portrait{
+    position:relative;
+    aspect-ratio:1/1.05;
+    width:100%;
+    border-radius:24px;
+    background:linear-gradient(160deg, var(--lavender), var(--rose) 130%);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .about-portrait .hint{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; text-align:center; font-size:13px; line-height:2; padding:30px;
+  }
+  .about-portrait img{
+    position:absolute; inset:0;
+    width:100%; height:100%; object-fit:cover; object-position:center;
+    display:none;
+  }
+  .about-text p b{ color:var(--ink); font-weight:600; }
+  .about-text p{ color:var(--ink-soft); line-height:2; font-size:15.5px; margin-bottom:18px; max-width:520px; }
+  .skills{ display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+  .skills span{
+    padding:8px 16px; border-radius:999px; background:var(--card);
+    border:1px solid var(--line); font-size:12.5px; color:var(--ink-soft);
+  }
+
+
+  /* ---------- hero role line ---------- */
+  .hero-role{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin:-8px 0 18px;
+    font-family:"Cormorant Garamond", serif; font-weight:600;
+    font-size:16px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--rose-deep);
+  }
+  .hero-role i{ width:6px; height:6px; background:var(--gold); transform:rotate(45deg); flex-shrink:0; }
+
+  /* ---------- language switch ---------- */
+  .lang-switch{ display:flex; gap:2px; padding:3px; border:1px solid var(--line); border-radius:999px; background:var(--card); }
+  .lang-switch button{
+    border:none; background:transparent; cursor:pointer; font-family:inherit;
+    font-size:12px; letter-spacing:.04em; color:var(--ink-soft);
+    padding:5px 12px; border-radius:999px; transition:all .2s ease;
+  }
+  .lang-switch button:hover{ color:var(--ink); }
+  .lang-switch button.active{ background:var(--ink); color:#fff; }
+
+  /* ---------- mobile menu toggle ---------- */
+  .menu-toggle{
+    display:none; width:42px; height:42px; padding:0; border-radius:50%;
+    border:1px solid var(--line); background:var(--card); cursor:pointer;
+    flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  }
+  .menu-toggle span{ width:16px; height:1.8px; background:var(--ink); border-radius:2px; transition:transform .25s ease, opacity .25s ease; }
+  .sidebar.menu-open .menu-toggle span:nth-child(1){ transform:translateY(5.8px) rotate(45deg); }
+  .sidebar.menu-open .menu-toggle span:nth-child(2){ opacity:0; }
+  .sidebar.menu-open .menu-toggle span:nth-child(3){ transform:translateY(-5.8px) rotate(-45deg); }
+
+  /* ---------- card: multi-image badge ---------- */
+  .card .frame{ position:relative; }
+  .card .multi{
+    position:absolute; top:12px; right:12px; z-index:2;
+    display:flex; align-items:center; gap:5px;
+    padding:4px 9px; border-radius:999px;
+    background:rgba(255,255,255,.88); color:var(--ink); font-size:11.5px;
+    box-shadow:0 6px 14px -8px rgba(0,0,0,.4);
+  }
+  .card .multi svg{ width:13px; height:13px; }
+
+  /* ---------- commission ---------- */
+  .commission{ padding-top:70px; padding-bottom:60px; }
+  .cm-lead{ color:var(--ink-soft); line-height:1.9; font-size:15px; max-width:660px; margin:0 0 32px; }
+  .cm-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px; }
+  .cm-card{ background:var(--card); border-radius:22px; padding:26px 24px; box-shadow:var(--shadow); }
+  .cm-card .ico{
+    width:42px; height:42px; border-radius:50%;
+    background:var(--bg-deep); color:var(--rose-deep);
+    display:flex; align-items:center; justify-content:center; margin-bottom:14px;
+  }
+  .cm-card .ico svg{ width:20px; height:20px; }
+  .cm-card h3{ font-size:16px; font-weight:600; margin-bottom:8px; }
+  .cm-card p{ font-size:13.5px; color:var(--ink-soft); line-height:1.85; }
+  .cm-sub{ font-family:"Cormorant Garamond", serif; font-style:italic; font-weight:600; font-size:26px; margin:46px 0 18px; }
+  .cm-steps{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:14px; }
+  .cm-step{ background:rgba(255,255,255,.6); border:1px solid var(--line); border-radius:20px; padding:20px 18px; }
+  .cm-step .num{ font-family:"Cormorant Garamond", serif; font-style:italic; font-size:28px; line-height:1; color:var(--rose-deep); margin-bottom:8px; }
+  .cm-step h4{ font-size:14.5px; font-weight:600; margin-bottom:6px; }
+  .cm-step p{ font-size:12.5px; color:var(--ink-soft); line-height:1.75; }
+  .cm-notes{
+    margin-top:34px; padding:26px 30px; border-radius:24px;
+    background:rgba(255,255,255,.55); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    box-shadow:0 30px 60px -32px rgba(122,84,70,.3);
+  }
+  .cm-notes ul{ list-style:none; }
+  .cm-notes li{ position:relative; padding-left:22px; margin-bottom:8px; font-size:14px; line-height:1.9; color:var(--ink-soft); }
+  .cm-notes li:last-child{ margin-bottom:0; }
+  .cm-notes li::before{ content:"✦"; position:absolute; left:0; top:.25em; font-size:11px; color:var(--gold); }
+  .cm-cta{ margin-top:30px; }
+
+  /* ---------- contact ---------- */
+  .contact{ padding-top:80px; padding-bottom:140px; }
+  .contact-box{
+    border-radius:28px;
+    background:linear-gradient(135deg, #fff, var(--bg-deep));
+    box-shadow:var(--shadow);
+    padding:48px 56px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+    align-items:center;
+    gap:24px;
+  }
+  .contact-text{ position:relative; z-index:2; }
+  /* 注意：這層不能設 position / z-index（會形成獨立疊層，multiply 就無法和後方漸層混合，白底會露出來） */
+  .contact-art{ width:100%; max-width:460px; margin:0 auto; }
+  .contact-art img{
+    display:block; width:100%; height:auto;
+    margin-top:-12%;               /* 把圖片上方的留白收掉 */
+    mix-blend-mode:multiply;       /* 白底融入漸層底色，不會看到方框 */
+    animation:rideFloat 4.5s ease-in-out infinite;
+    /* 右側漸隱（高鐵像駛出畫面）；最下方 9% 保持完整，讓署名不被淡掉 */
+    -webkit-mask-image:linear-gradient(to right, #000 74%, transparent 100%), linear-gradient(#000, #000);
+            mask-image:linear-gradient(to right, #000 74%, transparent 100%), linear-gradient(#000, #000);
+    -webkit-mask-size:100% 91%, 100% 9%;       mask-size:100% 91%, 100% 9%;
+    -webkit-mask-position:0 0, 0 100%;         mask-position:0 0, 0 100%;
+    -webkit-mask-repeat:no-repeat;             mask-repeat:no-repeat;
+  }
+  @keyframes rideFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-6px);} }
+  @media (prefers-reduced-motion: reduce){ .contact-art img{ animation:none; } }
+  .contact-box h2{
+    font-family:"Cormorant Garamond", serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:40px;
+    margin-bottom:14px;
+  }
+  .contact-box p{ color:var(--ink-soft); margin-bottom:30px; }
+  .contact-mail{
+    font-size:20px;
+    color:var(--rose-deep);
+    text-decoration:none;
+    border-bottom:1px solid var(--rose-deep);
+    padding-bottom:4px;
+  }
+
+  footer{ text-align:center; padding:30px; font-size:12px; color:var(--ink-soft); }
+
+  /* ---------- lightbox ---------- */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(62,51,47,.78);
+    display:none; align-items:center; justify-content:center; z-index:200;
+    padding:5vh 5vw;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-frame{
+    position:relative;
+    display:flex;
+    max-width:96vw; max-height:92vh;
+  }
+  .lightbox-inner{
+    position:relative;
+    background:var(--card);
+    border-radius:20px;
+    overflow:hidden;
+    display:flex;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.5);
+  }
+  .lightbox-img{
+    position:relative; flex-shrink:0;
+    background:var(--bg-deep);
+    overflow:hidden;
+  }
+  .lightbox-img.zoomed{ cursor:grab; }
+  .lightbox-img.zoomed.dragging{ cursor:grabbing; }
+  .lightbox-img:not(.zoomed){ cursor:zoom-in; }
+  .lightbox-img img{ width:100%; height:100%; object-fit:fill; display:block; transition:transform .12s ease-out; will-change:transform; user-select:none; -webkit-user-drag:none; }
+  .lightbox-info{
+    flex-shrink:0;
+    padding:clamp(24px, 3.5vw, 44px);
+    display:flex; flex-direction:column; justify-content:center;
+    overflow:auto;
+  }
+  .lightbox-info h3{ font-family:"Cormorant Garamond", serif; font-style:italic; font-size:clamp(22px, 2.2vw, 30px); margin-bottom:10px; }
+  .lightbox-info span{ font-size:12px; color:var(--rose-deep); }
+  .lightbox-close{
+    position:absolute; top:-18px; right:-18px; width:44px; height:44px; border-radius:50%;
+    background:var(--ink); color:#fff; border:none; cursor:pointer; font-size:20px;
+    display:flex; align-items:center; justify-content:center; z-index:5;
+    box-shadow:0 10px 24px -10px rgba(0,0,0,.5);
+    transition:all .2s ease;
+  }
+  .lightbox-close:hover{ background:var(--rose-deep); transform:scale(1.08); }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(255,255,255,.88); color:var(--ink); border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; z-index:5;
+    box-shadow:0 10px 24px -10px rgba(0,0,0,.45);
+    transition:background .2s ease, color .2s ease, transform .2s ease;
+  }
+  .lightbox-nav svg{ width:20px; height:20px; }
+  .lightbox-nav:hover{ background:var(--rose-deep); color:#fff; }
+  .lightbox-nav.prev{ left:-64px; }
+  .lightbox-nav.next{ right:-64px; }
+  .lightbox-nav.prev:hover{ transform:translateY(-50%) translateX(-2px); }
+  .lightbox-nav.next:hover{ transform:translateY(-50%) translateX(2px); }
+  .lightbox-nav[hidden]{ display:none; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1080px){
+    .hero{ display:block; padding-bottom:60px; }
+    .hero-stage{ position:static; height:auto; }
+    .hero-art{ position:relative; inset:auto; width:100%; aspect-ratio:16/10; margin-top:32px; }
+    .hero-text-card{ position:relative; left:auto; top:auto; transform:none; width:100%; max-width:100%; animation:heroFadeIn 1.6s ease .1s both; }
+    .about-grid{ grid-template-columns:1fr; }
+  }
+  @keyframes heroFadeIn{ from{ opacity:0; transform:translateY(20px);} to{ opacity:1; transform:translateY(0);} }
+  @media (max-width: 760px){
+    .shell{ flex-direction:column; }
+    .sidebar{
+      position:sticky; top:0; width:100%; height:auto; max-height:100vh; overflow-y:auto;
+      flex-direction:row; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      padding:10px 18px; border-right:none; border-bottom:1px solid var(--line);
+    }
+    .brand{ flex-direction:row; width:auto; gap:10px; }
+    .brand-logo-img{ width:40px; height:40px; }
+    .brand-fallback-icon{ width:36px; height:36px; }
+    .brand-name{ margin-top:0; font-size:18px; }
+    .brand-sub{ display:none; }
+    .menu-toggle{ display:flex; }
+    nav.mainnav{ display:none; flex-basis:100%; margin-top:10px; }
+    .sidebar-foot{ display:none; flex-basis:100%; margin:6px 0 8px; }
+    .sidebar.menu-open nav.mainnav, .sidebar.menu-open .sidebar-foot{ display:flex; }
+    section{ padding:0 24px; scroll-margin-top:64px; }
+    .lightbox-frame{ max-width:92vw; max-height:90vh; }
+    .lightbox-inner{ flex-direction:column; }
+    .lightbox-info{ width:100% !important; height:auto !important; max-height:40vh; }
+    .lightbox-close{ top:-16px; right:-16px; }
+    .lightbox-nav{ width:38px; height:38px; background:rgba(255,255,255,.8); }
+    .lightbox-nav.prev{ left:8px; }
+    .lightbox-nav.next{ right:8px; }
+    .contact-box{ grid-template-columns:1fr; padding:28px 22px 36px; gap:8px; }
+    .contact-art{ max-width:360px; }
+    .cm-notes{ padding:22px 20px; }
+    .about-body{ padding:22px 22px 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="images/cat-icon.png" alt="Namilkcat 貓咪圖示" class="brand-logo-img"
+           onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+           onerror="this.style.display='none';">
+      <svg class="brand-fallback-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 55 Q28 30 40 22 Q42 30 46 32" stroke="#3E332F" stroke-width="2" stroke-linecap="round"/>
+        <path d="M70 55 Q72 30 60 22 Q58 30 54 32" stroke="#3E332F" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="50" cy="58" rx="24" ry="20" stroke="#3E332F" stroke-width="2"/>
+        <circle cx="42" cy="55" r="2" fill="#3E332F"/>
+        <circle cx="58" cy="55" r="2" fill="#3E332F"/>
+        <path d="M46 64 Q50 68 54 64" stroke="#3E332F" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M50 78 Q50 88 60 90" stroke="#3E332F" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </svg>
+      <div class="brand-name">Namilkcat*</div>
+      <div class="brand-sub" data-i18n="brandSub">那米克貓工作室</div>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="mainnav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="mainnav" id="mainnav">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#works">Works</a>
+      <a href="#commission">Commission</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="zh" class="active">中文</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="ja">日本語</button>
+      </div>
+      <div class="socials">
+        <a href="#contact" aria-label="Mail" title="Contact">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </a>
+        <a href="https://www.facebook.com/namilkcat" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.pixiv.net/users/17694051" target="_blank" rel="noopener noreferrer" aria-label="pixiv" title="pixiv">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V5"/><circle cx="13.5" cy="10.5" r="5"/></svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="sparkle" style="width:18px;height:18px; top:8%; left:16%; animation-delay:.2s;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+      </div>
+      <div class="sparkle" style="width:14px;height:14px; top:10%; right:10%; animation-delay:1.1s;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+      </div>
+      <div class="sparkle" style="width:16px;height:16px; top:88%; left:30%; animation-delay:.7s;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+      </div>
+      <div class="sparkle" style="width:12px;height:12px; top:86%; right:14%; animation-delay:1.6s;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+      </div>
+
+      <div class="hero-stage">
+        <div class="hero-art">
+          <!-- 👉 把圖片存成 images/hero.jpg 放進資料夾
+               圖片載入成功會自動滿版鋪滿裁切、無留白，四角維持圓角 -->
+          <img src="images/hero.jpg" alt="主視覺插畫"
+               onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+               onerror="this.style.display='none';">
+          <div class="hint"><b>放上你的主視覺</b>把喜歡的一張代表作<br>存成 images/hero.jpg<br>放進 images 資料夾即可自動顯示</div>
+        </div>
+
+        <div class="hero-text-card">
+          <div class="eyebrow">Welcome to my</div>
+          <h1 class="hero-title">Portfolio</h1>
+          <div class="hero-role"><span>Illustrator</span><i></i><span>Game Artist</span></div>
+          <p class="hero-desc" data-i18n="heroDesc">用畫筆紀錄靈感，創造無限可能。<br>歡迎瀏覽我的插畫作品，這裡收錄了我參與執行過的專案。包含角色設計、插畫、練習與想像創作。</p>
+          <div class="hero-actions">
+            <a href="#works" class="btn btn-primary" data-i18n="btnWorks">View Works</a>
+            <a href="#contact" class="btn btn-ghost" data-i18n="btnContact">Get in Touch</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-cue"><span class="line"></span> SCROLL</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="sparkle" style="width:18px;height:18px; top:46px; left:7%; animation-delay:.4s;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+      </div>
+      <div class="sparkle" style="width:14px;height:14px; top:64px; right:6%; animation-delay:1.3s;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+      </div>
+      <div class="sparkle" style="width:16px;height:16px; bottom:48px; left:22%; animation-delay:.9s;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+      </div>
+      <div class="sparkle" style="width:12px;height:12px; bottom:70px; right:9%; animation-delay:1.9s;">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+      </div>
+      <div class="about-grid">
+        <div class="about-portrait">
+          <img src="images/profile.jpg" alt="自畫像"
+               onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+               onerror="this.style.display='none';">
+          <div class="hint">放上你的頭像 / 自畫像<br>images/profile.jpg</div>
+        </div>
+        <div class="about-text">
+          <div class="cn" data-i18n="aboutCn" style="color:var(--rose-deep); letter-spacing:.12em; font-size:13px; margin-bottom:10px;">關　於　我</div>
+          <h2 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:36px; margin-bottom:22px;">About Me</h2>
+          <div class="about-body">
+          <p data-i18n="aboutP1">嗨，<b>我是Namilkcat團隊裡的草蛙，一名插畫與遊戲美術工作者</b>，養了一隻暱稱「餅喵」的軟呼呼小貓咪。</p>
+          <p data-i18n="aboutP2">我喜歡玩遊戲，也喜歡畫圖。<br>從遊戲與故事角色的設計、同人創作到商業委託，我享受將腦中的想像轉化為畫面的過程。</p>
+          <p data-i18n="aboutP3"><b>擅長電繪與手繪，具備向量繪圖、印前製作與商業美術的實務經驗</b>，也累積了多年遊戲美術與視覺設計相關工作經歷。</p>
+          <p data-i18n="aboutP4">目前持續探索插畫、角色設計與視覺創作的各種可能，也期待接觸不同類型的創作與合作！</p>
+          </div>
+          <div class="skills">
+            <span data-i18n="sk1">角色設計</span><span data-i18n="sk2">插畫</span><span data-i18n="sk3">CSP</span><span>Photoshop</span><span data-i18n="sk5">平面設計</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKS -->
+    <section class="works" id="works">
+      <div class="section-head">
+        <div>
+          <div class="cn" data-i18n="worksCn">作　品　集</div>
+          <h2>Selected Works</h2>
+        </div>
+        <div class="filter-row" id="filterRow">
+          <button class="filter-btn active" data-filter="all" data-i18n="fAll">全部</button>
+          <button class="filter-btn" data-filter="project" data-i18n="fProject">專案</button>
+          <button class="filter-btn" data-filter="illust" data-i18n="fIllust">插畫</button>
+          <button class="filter-btn" data-filter="character" data-i18n="fChar">角色設計</button>
+          <button class="filter-btn" data-filter="UI" data-i18n="fUI">UI．平面設計</button>
+		  <button class="filter-btn" data-filter="IP" data-i18n="fIP">IP．那米克貓星球</button>
+        </div>
+      </div>
+
+      <div class="grid" id="worksGrid"></div>
+    </section>
+
+    <!-- COMMISSION -->
+    <!-- 👉 接案資訊為草稿內容，請依你實際的合作方式修改（文字同時存在於下方 I18N 字典的 en / ja 區塊） -->
+    <section class="commission" id="commission">
+      <div class="section-head" style="margin-bottom:22px;">
+        <div>
+          <div class="cn" data-i18n="cmCn">接　案　資　訊</div>
+          <h2>Commission</h2>
+        </div>
+      </div>
+      <p class="cm-lead" data-i18n="cmLead">歡迎洽談各類插畫與設計案件。<br>以下是大致的服務範圍與合作流程，實際內容會依需求另行討論。</p>
+
+      <div class="cm-grid">
+        <div class="cm-card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <h3 data-i18n="cm1t">角色設計</h3>
+          <p data-i18n="cm1d">原創角色、遊戲角色與服裝套裝設計，可提供設定稿與立繪。</p>
+        </div>
+        <div class="cm-card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
+          <h3 data-i18n="cm2t">插畫</h3>
+          <p data-i18n="cm2d">遊戲宣傳圖、主視覺、同人與商業插畫、節慶賀圖。</p>
+        </div>
+        <div class="cm-card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <h3 data-i18n="cm3t">UI．平面設計</h3>
+          <p data-i18n="cm3d">遊戲 UI 介面規劃與圖示設計、ICON道具圖樣、美編與排版設計。</p>
+        </div>
+        <div class="cm-card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+          <h3 data-i18n="cm4t">Q版與周邊</h3>
+          <p data-i18n="cm4d">Q版角色設計與賀圖、LINE貼圖，以及徽章、鑰匙圈、明信片、抱枕等周邊商品設計。</p>
+        </div>
+      </div>
+
+      <h3 class="cm-sub" data-i18n="cmFlow">合作流程</h3>
+      <div class="cm-steps">
+        <div class="cm-step"><div class="num">01</div><h4 data-i18n="st1t">洽談需求</h4><p data-i18n="st1d">說明用途、尺寸、參考資料、預算與期限。</p></div>
+        <div class="cm-step"><div class="num">02</div><h4 data-i18n="st2t">報價確認</h4><p data-i18n="st2d">依內容與用途報價，確認時程與條件。</p></div>
+        <div class="cm-step"><div class="num">03</div><h4 data-i18n="st3t">草稿</h4><p data-i18n="st3d">確認構圖與方向。</p></div>
+        <div class="cm-step"><div class="num">04</div><h4 data-i18n="st4t">線稿・上色</h4><p data-i18n="st4d">線稿確認後進行上色。</p></div>
+        <div class="cm-step"><div class="num">05</div><h4 data-i18n="st5t">完稿交付</h4><p data-i18n="st5d">交付完稿檔案。</p></div>
+      </div>
+
+      <div class="cm-notes">
+        <ul>
+          <li data-i18n="cmN1">報價依內容、複雜度與用途（個人／商業）而定。</li>
+          <li data-i18n="cmN2">修改以草稿與線稿階段為主，完稿後僅接受小幅調整。</li>
+          <li data-i18n="cmN3">著作權與授權範圍會在報價時一併約定。</li>
+          <li data-i18n="cmN4">來信時請附上：用途、尺寸、參考資料、預算範圍與截止日。</li>
+        </ul>
+      </div>
+      <div class="cm-cta"><a href="#contact" class="btn btn-primary" data-i18n="btnContact">Get in Touch</a></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <div class="contact-box">
+        <div class="sparkle" style="width:16px;height:16px; top:14%; left:6%; animation-delay:.3s;">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+        </div>
+        <div class="sparkle" style="width:12px;height:12px; top:9%; left:40%; animation-delay:1.2s;">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+        </div>
+        <div class="sparkle" style="width:18px;height:18px; bottom:14%; right:7%; animation-delay:.8s;">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+        </div>
+        <div class="contact-art">
+          <!-- 👉 把 000.jpg 放進 images 資料夾 -->
+          <img src="images/000.jpg" alt="草蛙、鼠鼠與虎斑貓坐在高鐵上開心出發的插畫">
+        </div>
+        <div class="contact-text">
+          <h2>Let's Create Together</h2>
+          <p data-i18n="ctP">如果你對我的作品或經歷感興趣，歡迎與我聯繫。<br>
+          期待與你一起創造更多可能。<br>
+          <br>
+          Thank you for viewing my portfolio.</p>
+          <a class="contact-mail" href="mailto:namilkcat@gmail.com">namilkcat@gmail.com</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>© 2026 namilkcat studio🎨</footer>
+  </main>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-frame">
+    <div class="lightbox-inner">
+      <div class="lightbox-img"><img id="lbImg" src="" alt=""></div>
+      <div class="lightbox-info">
+        <span id="lbTag"></span>
+        <h3 id="lbTitle"></h3>
+        <p id="lbDesc" style="color:var(--ink-soft); font-size:14px; line-height:1.9; margin-top:10px; white-space:pre-line;"></p>
+      </div>
+    </div>
+    <button class="lightbox-nav prev" id="lbPrev" aria-label="上一張" title="上一張 (←)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button class="lightbox-nav next" id="lbNext" aria-label="下一張" title="下一張 (→)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <button class="lightbox-close" id="lbClose">✕</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   👉 在這裡新增你的作品！
+   每一筆是一件作品，複製一組 { } 貼上就可以新增。
+
+   src   → 圖片路徑（把圖片放進 images 資料夾，這裡填檔名）
+   title → 作品名稱
+   tag   → 分類：character（角色設計）/ illust（插畫）/ sketch（速寫）/ IP （原創角色）
+   tagLabel → 分類要顯示的中文字
+   desc  → 作品簡短說明（可留空 ""）
+   ============================================================ */
+const works = [
+  { src: "images/hero.jpg", title: "首頁主視覺圖", tag: "illust", tagLabel: "插畫", desc: "與你相伴，一起在繁花包圍的原野中漫步。\n\n——《葬送的芙莉蓮》二次創作。\n\n首頁主視覺的完整插畫，未經裁切，可在此瀏覽全貌。" },
+  { src: "images/work1.jpg", title: "不愧是妳", tag: "illust", tagLabel: "插畫", desc: "真不愧是芙莉蓮！果然辦到了！\n\n——《劍與遠征：啟程》ｘ《葬送的芙莉蓮》二次創作。\n\n" },
+  { src: "images/work2.jpg", title: "月下魅魔", tag: "illust",     tagLabel: "插畫", desc: "遊戲角色梅希拉，一個神祕的魅魔。\n\n——《劍與遠征：啟程》二次創作。\n\n" },
+  { src: "images/work3.jpg", title: "微笑少女", tag: "illust", tagLabel: "插畫", desc: "自我練習圖。\n\n以盡可能簡易的色塊與漸層上色，來測試能否縮減繪製時間的練習。\n並且嘗試應用AI（Gemini、ComfyUI）來輔助做不同風格光影色調的測試。" },
+  { src: "images/work4.jpg", title: "農曆新年賀圖", tag: "project",   tagLabel: "專案", desc: "為慶祝農曆新年而生的賀圖專案。\n\n首次嘗試應用AI輔助製圖（Gemini、ComfyUI、Midjourney）。\n由我自行發想構圖、人物造型與動態設計和場景氛圍。後利用AI輔助場景中的景物透視、整體氛圍探索。\n確認想要的方向後，再進行整體畫面的整合與重繪。" },
+  { src: "images/work5.jpg", title: "蘿絲",  tag: "project",    tagLabel: "專案", desc: "遊戲專案相關插圖。\n\n角色、大略姿態與氛圍由文字需求指定，\n執行內容由大草→精草→線稿畫到完稿定案。主要負責角色本體、特效、背景氛圍與景物配置；背景以完成整體氛圍與構圖呈現為主。" },
+  { src: "images/work6.jpg", title: "勇者&強者",  tag: "project",tagLabel: "專案", desc: "遊戲專案相關插圖。\n\n角色、大略姿態有文字指定，由大草→精草→線稿畫到上色完稿。" },
+  { src: "images/work14-1.jpg", title: "角色設計01｜設計稿",  tag: "character", tagLabel: "角色設計", desc: "角色設計練習。\n日系風格結合美式街頭運動科技風。\n\n——角色設計01 系列（1/2）\n對應的立繪請見下一張。" },
+  { src: "images/work14-2.jpg", title: "角色設計01｜立繪",  tag: "character", tagLabel: "角色立繪", desc: "前一張設計稿的立繪練習。\n從草圖構圖開始，到線稿與上色完稿為止。\n\n——角色設計01 系列（2/2）" },
+  { src: "images/work7.jpg", title: "角色設計02",  tag: "character",tagLabel: "角色設計", desc: "私人委託主題的角色服裝設計。" },
+  { src: "images/work8.jpg", title: "角色設計03",  tag: "character",tagLabel: "角色設計", desc: "參與過的遊戲專案服裝設計，以及私人委託主題的角色服裝設計。" },
+  { src: "images/work9.jpg", title: "角色設計_虎秋",  tag: "character",tagLabel: "角色設計", desc: "虎秋。\n\n私人委託製作的遊戲角色設計，包含從簡單小動物逐步進化到人形的造型。" },
+  { src: "images/work10.jpg", title: "角色設計_熊瑜",  tag: "character",tagLabel: "角色設計", desc: "熊瑜。\n\n私人委託製作的遊戲角色設計，包含從簡單小動物逐步進化到人形的造型。" },
+  { src: "images/work11.jpg", title: "角色設計_狐芯",  tag: "character",tagLabel: "角色設計", desc: "狐芯。\n\n私人委託製作的遊戲角色設計，包含從簡單小動物逐步進化到人形的造型。" },
+  { src: "images/work12.jpg", title: "新年賀圖",  tag: "illust",tagLabel: "插畫", desc: "結合自創IP的角色繪製的新年賀圖。\n\n" },
+  { src: "images/work13.jpg", title: "套裝設計_廚師套裝",  tag: "character",tagLabel: "角色設計", desc: "遊戲專案中角色套裝設計，主題為「廚師」。\n\n" },
+  { src: "images/work_UI1.jpg", title: "UI設計01",  tag: "UI",tagLabel: "UI設計", desc: "遊戲專案中不同隊伍的代表旗幟設計，\n除旗幟底圖外，同時也設計了代表各式圖供玩家選擇。\n\n企劃發注文件指定數量與大方向後著手進行，從草圖構思到完稿。\n\n" },  
+  { src: "images/work_UI2.jpg", title: "UI設計02",  tag: "UI",tagLabel: "UI設計", desc: "遊戲UI介面的規劃與設計，此頁為統合衣櫃套裝的配置設計示意。\n——專案《魅魔莉莉姆想要升級♥》\n\n" },  
+  { src: "images/work_UI3.jpg", title: "UI設計03",  tag: "UI",tagLabel: "UI設計", desc: "遊戲UI介面的規劃與設計，此頁為配合外文版本的轉蛋頁配置設計示意。\n——專案《魅魔莉莉姆想要升級♥》\n\n" },  
+  { src: "images/work_UI4.jpg", title: "UI設計04",  tag: "UI",tagLabel: "UI設計", desc: "私人委託製作的遊戲UI介面規劃與設計，\nUI、版面設計與ICON、所有遊戲內容皆一人包辦。\n\n本專案為設計驗證「具遊戲激勵機制學習系統對學習成效」的研究中的小遊戲，研究內容與設計畫面皆發布於正式學術論文上。\n——專案《激勵式語言學習小遊戲》\n\n" },  
+  { src: "images/work_UI5.jpg", title: "平面排版設計",  tag: "UI",tagLabel: "排版設計", desc: "為書面期刊內容進行美編排版、發包，總共製作三期，每期有5大單元與其他資訊頁，圖為其中一頁的示意。\n\n" },  
+  { src: "images/card1.jpg", title: "Have a nice day!",  tag: "IP",tagLabel: "原創角色", desc: "原創角色IP配合參加的展覽活動，特別設計遊樂園主題的賀卡。\n分別有餅喵、草蛙、牛奶貓與松鼠倉倉。\n\n——《那米克貓星球》" },
+  { src: "images/card2.jpg", title: "恭賀新年",  tag: "IP",tagLabel: "原創角色", desc: "原創角色IP搭配龍年新年主題的賀卡。\n除原有小動物一起參與，也加入草蛙娘扮演舞獅。\n\n——《那米克貓星球》" },
+  { src: "images/card3.jpg", title: "平安如意",  tag: "IP",tagLabel: "原創角色", desc: "新年春聯的設計！\n全圖以向量繪圖方式來製作。\n\n——《那米克貓星球》" },
+  { src: "images/card4.jpg", title: "情人節快樂",  tag: "IP",tagLabel: "原創角色", desc: "情人節賀圖。\n那米克貓手工巧克力工廠，為大家趕工加製好吃巧克力，送給所有有情人和沒情人的好朋友。\n\n——《那米克貓星球》" },
+  { src: "images/card5.jpg", title: "端午節賀圖",  tag: "IP",tagLabel: "原創角色", desc: "端午節賀圖。\n大力推薦有鹹蛋黃跟花生仁的好吃肉粽喔！\n\n——《那米克貓星球》" },
+  { src: "images/card6.jpg", title: "不給糖就搗蛋",  tag: "IP",tagLabel: "原創角色", desc: "萬聖節賀圖！\n萬聖節最棒的環節就是Trick or Treat了！在我們成長為得給糖的大人之前。\n\n——《那米克貓星球》" },
+  { src: "images/card7.jpg", title: "HALLOWEEN",  tag: "IP",tagLabel: "原創角色", desc: "HALLOWEEN！\n一起來扮裝~讓萬聖節變歡樂不恐怖吧！\n\n——《那米克貓星球》" },  
+  { src: "images/card8.jpg", title: "聖誕節快樂",  tag: "IP",tagLabel: "原創角色", desc: "聖誕夜裡忙碌的小動物們！\n努力在天亮前把禮物送到大家的聖誕襪裡。\n\n——《那米克貓星球》" },  
+  { src: "images/card9.jpg", title: "Christmas Eve",  tag: "IP",tagLabel: "原創角色", desc: "平安夜愉快～\n草蛙娘和餅喵一起祝福大家平安夜平安，聖誕節快樂！\n\n——《那米克貓星球》" },    
+  { src: "images/output1.jpg", title: "實體商品製作",  tag: "IP",tagLabel: "原創角色", desc: "想讓自己的商品具現化的初衷，到最後順利製作完成，送到喜歡他們的人手中！\n抱枕、明信片、鑰匙圈。\n\n——《那米克貓星球》" },    
+  { src: "images/output2.jpg", title: "實體商品製作2",  tag: "IP",tagLabel: "原創角色", desc: "製作實體商品徽章跟鑰匙圈！\n\n——《那米克貓星球》" },  
+   ];
+
+
+/* ============================================================
+   🌐 多語言 (中文 / English / 日本語)
+   - 頁面上有 data-i18n="key" 的文字，會依語言換成下面字典的內容；中文就是原本寫在 HTML 裡的字。
+   - 作品的英文／日文名稱與說明在 WORKS_I18N（用該作品第一張圖的路徑當 key）。
+   - 新增作品時，沒有翻譯會自動顯示中文，不會壞掉；想補翻譯就在 WORKS_I18N 加一筆即可。
+   ============================================================ */
+const I18N = {
+  en: {
+    pageTitle: "Namilkcat* | Illustrator & Game Artist Portfolio",
+    brandSub: "Namilkcat Studio",
+    heroDesc: "Capturing inspiration with a pen and creating endless possibilities.<br>Welcome to my illustration portfolio — a collection of projects I've worked on, including character design, illustration, practice pieces and imaginative works.",
+    btnWorks: "View Works", btnContact: "Get in Touch",
+    aboutCn: "About",
+    aboutP1: "Hi! <b>I'm Caowa (草蛙, “Grass Frog”) from the Namilkcat team, an illustrator and game artist</b>, and I live with a soft, fluffy cat nicknamed Bingmiao (餅喵).",
+    aboutP2: "I love playing games and I love drawing.<br>From character and story design to fan creations and commercial commissions, I enjoy turning the ideas in my head into finished images.",
+    aboutP3: "<b>Skilled in both digital and traditional drawing, with hands-on experience in vector illustration, pre-press production and commercial art</b>, plus several years of work experience in game art and visual design.",
+    aboutP4: "I'm continuing to explore illustration, character design and visual creation, and I'm looking forward to all kinds of creative projects and collaborations!",
+    sk1: "Character Design", sk2: "Illustration", sk3: "Clip Studio Paint", sk5: "Graphic Design",
+    worksCn: "Works",
+    fAll: "All", fProject: "Projects", fIllust: "Illustration", fChar: "Character Design", fUI: "UI & Graphic Design", fIP: "Original IP · Namilkcat Planet",
+    cmCn: "Commissions",
+    cmLead: "I'm happy to discuss all kinds of illustration and design projects.<br>Below is a general overview of my services and workflow; details are always tailored to your needs.",
+    cm1t: "Character Design", cm1d: "Original and game characters, outfits and costume sets, with design sheets and full-body illustrations.",
+    cm2t: "Illustration", cm2d: "Promotional art, key visuals, fan and commercial illustrations, and seasonal greeting art.",
+    cm3t: "UI & Graphic Design", cm3d: "Game UI layout and icon design, item icon artwork, editorial and layout design.",
+    cm4t: "Chibi & Merchandise", cm4d: "Chibi character design, greeting art and LINE stickers, plus merchandise design such as pins, keychains, postcards and pillows.",
+    cmFlow: "Workflow",
+    st1t: "Discuss", st1d: "Share the purpose, size, references, budget and deadline.",
+    st2t: "Quote", st2d: "A quote based on scope and usage; schedule and terms are confirmed.",
+    st3t: "Rough", st3d: "Confirm the composition and direction.",
+    st4t: "Line & Color", st4d: "Color work begins once the line art is approved.",
+    st5t: "Delivery", st5d: "Final files are delivered.",
+    cmN1: "Quotes depend on scope, complexity and usage (personal / commercial).",
+    cmN2: "Revisions are mainly handled at the rough and line-art stages; only minor tweaks are accepted after the final.",
+    cmN3: "Copyright and licensing terms are agreed upon together with the quote.",
+    cmN4: "Please include in your message: purpose, size, references, budget range and deadline.",
+    ctP: "If you're interested in my work or experience, please feel free to get in touch.<br>I look forward to creating more possibilities together.<br><br>Thank you for viewing my portfolio."
+  },
+  ja: {
+    pageTitle: "Namilkcat* | イラストレーター・ゲームアーティスト ポートフォリオ",
+    brandSub: "Namilkcat スタジオ",
+    heroDesc: "ペン先で閃きを記録し、無限の可能性を描きます。<br>私が携わったプロジェクトを収録したイラストポートフォリオへようこそ。キャラクターデザイン、イラスト、習作、創作作品を掲載しています。",
+    btnWorks: "作品を見る", btnContact: "お問い合わせ",
+    aboutCn: "私について",
+    aboutP1: "こんにちは！<b>Namilkcat チームの「草蛙（ツァオワー）」と申します。イラストとゲームアートの制作をしています</b>。「餅喵（ビンミャオ）」と呼んでいる、ふわふわの猫と暮らしています。",
+    aboutP2: "ゲームも絵を描くことも大好きです。<br>ゲームや物語のキャラクターデザイン、二次創作から商業案件まで、頭の中のイメージを一枚の絵にしていく過程を楽しんでいます。",
+    aboutP3: "<b>デジタル・アナログの両方の描画が得意で、ベクターイラスト、印刷前データ制作、商業美術の実務経験があります</b>。ゲームアートやビジュアルデザイン分野での経験も数年あります。",
+    aboutP4: "イラスト、キャラクターデザイン、ビジュアル制作の可能性を探り続けており、さまざまなジャンルの創作やコラボレーションにも挑戦したいと思っています！",
+    sk1: "キャラクターデザイン", sk2: "イラスト", sk3: "CLIP STUDIO PAINT", sk5: "グラフィックデザイン",
+    worksCn: "作品集",
+    fAll: "すべて", fProject: "プロジェクト", fIllust: "イラスト", fChar: "キャラクターデザイン", fUI: "UI・グラフィック", fIP: "オリジナルIP・Namilkcat プラネット",
+    cmCn: "ご依頼について",
+    cmLead: "イラスト・デザイン全般のご依頼をご相談ください。<br>以下はサービス範囲と進め方の目安です。詳細はご要望に合わせて個別にご相談します。",
+    cm1t: "キャラクターデザイン", cm1d: "オリジナル・ゲームキャラクターや衣装セットのデザイン。設定画と立ち絵にも対応します。",
+    cm2t: "イラスト", cm2d: "ゲームのプロモーション画像、キービジュアル、二次創作・商業イラスト、季節のご挨拶イラスト。",
+    cm3t: "UI・グラフィック", cm3d: "ゲームUIの設計とアイコンデザイン、アイテムICONの図案、誌面レイアウトなど。",
+    cm4t: "ミニキャラ・グッズ", cm4d: "ミニキャラのデザインやご挨拶イラスト、LINEスタンプ、バッジ・キーホルダー・ポストカード・クッションなどのグッズデザイン。",
+    cmFlow: "ご依頼の流れ",
+    st1t: "ご相談", st1d: "用途・サイズ・参考資料・予算・納期をお知らせください。",
+    st2t: "お見積り", st2d: "内容と用途に応じてお見積りし、スケジュールと条件を確認します。",
+    st3t: "ラフ", st3d: "構図と方向性を確認します。",
+    st4t: "線画・彩色", st4d: "線画の確認後に彩色へ進みます。",
+    st5t: "納品", st5d: "完成データをお渡しします。",
+    cmN1: "お見積りは内容・複雑さ・用途（個人／商用）によって異なります。",
+    cmN2: "修正は主にラフ・線画の段階で承ります。完成後は軽微な調整のみとなります。",
+    cmN3: "著作権と利用範囲は、お見積りの際にあわせて取り決めます。",
+    cmN4: "ご連絡の際は、用途・サイズ・参考資料・予算の目安・締切をご記入ください。",
+    ctP: "私の作品や経歴にご興味をお持ちいただけましたら、お気軽にご連絡ください。<br>ご一緒にさらなる可能性を創り出せることを楽しみにしています。<br><br>Thank you for viewing my portfolio."
+  }
+};
+const TAG_I18N = {
+  en: { "插畫":"Illustration", "專案":"Project", "角色設計":"Character Design", "UI設計":"UI Design", "排版設計":"Layout Design", "原創角色":"Original Character", "角色立繪":"Character Illustration" },
+  ja: { "插畫":"イラスト", "專案":"プロジェクト", "角色設計":"キャラクターデザイン", "UI設計":"UIデザイン", "排版設計":"レイアウト", "原創角色":"オリジナルキャラ", "角色立繪":"キャラクター立ち絵" }
+};
+const WORKS_I18N = {
+  "images/hero.jpg": {
+    en: { title: "Homepage Key Visual", desc: "Walking together with you through a field of blooming flowers.\n\n— Fan art of “Frieren: Beyond Journey's End”.\n\nThe complete, uncropped version of the homepage key visual, so you can see the whole picture." },
+    ja: { title: "トップページのメインビジュアル", desc: "あなたと一緒に、花に囲まれた野原を歩く。\n\n——『葬送のフリーレン』二次創作。\n\nトップページのメインビジュアルの全体図です。トリミングなしでご覧いただけます。" } },
+  "images/work1.jpg": {
+    en: { title: "Just Like You", desc: "As expected of Frieren — she really pulled it off!\n\n— Fan art of “AFK Journey” × “Frieren: Beyond Journey's End”." },
+    ja: { title: "さすがです", desc: "さすがフリーレン！やっぱりやり遂げた！\n\n——『AFKジャーニー』×『葬送のフリーレン』二次創作。" } },
+  "images/work2.jpg": {
+    en: { title: "Succubus Under the Moon", desc: "Mehira (梅希拉), a mysterious succubus from the game.\n\n— Fan art of “AFK Journey”." },
+    ja: { title: "月下のサキュバス", desc: "ゲームキャラクターの「メヒラ」。神秘的なサキュバスです。\n\n——『AFKジャーニー』二次創作。" } },
+  "images/work3.jpg": {
+    en: { title: "Smiling Girl", desc: "A personal practice piece.\n\nAn exercise in coloring with the simplest possible color blocks and gradients, to test whether production time can be reduced.\nI also experimented with AI tools (Gemini, ComfyUI) to test lighting and color variations in different styles." },
+    ja: { title: "微笑む少女", desc: "自主練習の作品です。\n\nできるだけシンプルな色面とグラデーションで彩色し、制作時間を短縮できるかを試した練習です。\nあわせてAI（Gemini、ComfyUI）を補助に使い、異なる画風の光と色調のテストも行いました。" } },
+  "images/work4.jpg": {
+    en: { title: "Lunar New Year Greeting Art", desc: "A greeting-art project made to celebrate Lunar New Year.\n\nMy first attempt at an AI-assisted workflow (Gemini, ComfyUI, Midjourney).\nI came up with the composition, character styling, poses and scene mood myself, then used AI to explore the perspective of scene elements and the overall atmosphere.\nOnce the direction was settled, I integrated and repainted the whole image." },
+    ja: { title: "旧正月の年賀イラスト", desc: "旧正月をお祝いするために描いた年賀イラストのプロジェクトです。\n\nAI補助制作（Gemini、ComfyUI、Midjourney）を初めて取り入れました。\n構図、キャラクターのデザイン、ポーズ、場面の雰囲気は自分で考え、その後AIで背景のパース感や全体の雰囲気を探りました。\n方向性が固まってから、全体を統合して描き直しています。" } },
+  "images/work5.jpg": {
+    en: { title: "Rose Oriana (蘿絲)", desc: "Illustration for a game project.\n\nThe character, rough pose and mood were specified in text. I carried it through from rough sketch → refined sketch → line art → final. I was mainly responsible for the character itself, effects, background atmosphere and prop layout; the background focuses on conveying overall mood and composition." },
+    ja: { title: "ローズ・オリアナ", desc: "ゲームプロジェクト用のイラスト。\n\nキャラクター、大まかなポーズ、雰囲気は文章で指定されていました。ラフ→清書ラフ→線画→完成まで担当。主にキャラクター本体、エフェクト、背景の雰囲気、小物の配置を担当し、背景は全体の雰囲気と構図を表現することを中心に仕上げています。" } },
+  "images/work6.jpg": {
+    en: { title: "Hero & Powerhouse", desc: "Illustration for a game project.\n\nThe characters and rough poses were specified in text; I took it from rough sketch → refined sketch → line art → final colors." },
+    ja: { title: "勇者と強者", desc: "ゲームプロジェクト用のイラスト。\n\nキャラクターと大まかなポーズは文章で指定されており、ラフ→清書ラフ→線画→彩色・完成まで担当しました。" } },
+  "images/work14-1.jpg": {
+    en: { title: "Character Design 01 | Design Sheet", desc: "A character design exercise.\nJapanese-style art combined with an American street-sports tech look.\n\n— Character Design 01 series (1/2)\nThe matching full-body illustration is the next image." },
+    ja: { title: "キャラクターデザイン01｜デザイン画", desc: "キャラクターデザインの練習。\n日本風の画風にアメリカンなストリート・スポーツ・テック系の要素を組み合わせました。\n\n——キャラクターデザイン01 シリーズ（1/2）\n対応する立ち絵は次の画像です。" } },
+  "images/work14-2.jpg": {
+    en: { title: "Character Design 01 | Full-body Illustration", desc: "A full-body illustration exercise based on the previous design sheet.\nFrom composition sketch through line art to finished color.\n\n— Character Design 01 series (2/2)" },
+    ja: { title: "キャラクターデザイン01｜立ち絵", desc: "前のデザイン画をもとにした立ち絵の練習。\nラフ構図から線画、彩色完成まで描きました。\n\n——キャラクターデザイン01 シリーズ（2/2）" } },
+  "images/work7.jpg": {
+    en: { title: "Character Design 02", desc: "Outfit design for a character in a private commission theme." },
+    ja: { title: "キャラクターデザイン02", desc: "個人依頼のテーマに基づく、キャラクターの衣装デザイン。" } },
+  "images/work8.jpg": {
+    en: { title: "Character Design 03", desc: "Costume designs for a game project I took part in, plus outfit designs for a private commission theme." },
+    ja: { title: "キャラクターデザイン03", desc: "参加したゲームプロジェクトの衣装デザインと、個人依頼のテーマによるキャラクター衣装デザイン。" } },
+  "images/work9.jpg": {
+    en: { title: "Character Design: Hu Qiu (虎秋)", desc: "Hu Qiu.\n\nA game character design from a private commission, including a gradual evolution from a simple small animal into a humanoid form." },
+    ja: { title: "キャラクターデザイン：虎秋", desc: "虎秋。\n\n個人依頼で制作したゲームキャラクターのデザイン。シンプルな小動物から人型へと段階的に進化していく姿を含みます。" } },
+  "images/work10.jpg": {
+    en: { title: "Character Design: Xiong Yu (熊瑜)", desc: "Xiong Yu.\n\nA game character design from a private commission, including a gradual evolution from a simple small animal into a humanoid form." },
+    ja: { title: "キャラクターデザイン：熊瑜", desc: "熊瑜。\n\n個人依頼で制作したゲームキャラクターのデザイン。シンプルな小動物から人型へと段階的に進化していく姿を含みます。" } },
+  "images/work11.jpg": {
+    en: { title: "Character Design: Hu Xin (狐芯)", desc: "Hu Xin.\n\nA game character design from a private commission, including a gradual evolution from a simple small animal into a humanoid form." },
+    ja: { title: "キャラクターデザイン：狐芯", desc: "狐芯。\n\n個人依頼で制作したゲームキャラクターのデザイン。シンプルな小動物から人型へと段階的に進化していく姿を含みます。" } },
+  "images/work12.jpg": {
+    en: { title: "New Year Greeting Art", desc: "A New Year greeting illustration featuring characters from my original IP." },
+    ja: { title: "新年のご挨拶イラスト", desc: "オリジナルIPのキャラクターを使った新年のご挨拶イラスト。" } },
+  "images/work13.jpg": {
+    en: { title: "Outfit Set Design: Chef", desc: "A character outfit set for a game project, themed around “chef”." },
+    ja: { title: "衣装セットデザイン：コック", desc: "ゲームプロジェクトにおけるキャラクター衣装セットのデザイン。テーマは「コック（料理人）」です。" } },
+  "images/work_UI1.jpg": {
+    en: { title: "UI Design 01", desc: "Representative flag designs for the different teams in a game project.\nBesides the flag backgrounds, I also designed a range of emblem icons for players to choose from.\n\nI started from the planner's request document, which specified the quantity and general direction, and worked from sketches to the final art." },
+    ja: { title: "UIデザイン01", desc: "ゲームプロジェクトにおける各チームの代表旗のデザイン。\n旗の地模様に加え、プレイヤーが選べる各種のエンブレム図案もデザインしました。\n\nプランナーの発注書で指定された数量と大まかな方向性をもとに、スケッチから完成まで制作しました。" } },
+  "images/work_UI2.jpg": {
+    en: { title: "UI Design 02", desc: "Game UI planning and design — this page shows the layout concept for the wardrobe / outfit-set screen.\n— Project: 《魅魔莉莉姆想要升級♥》" },
+    ja: { title: "UIデザイン02", desc: "ゲームUIの設計とデザイン。このページはワードローブ（衣装セット）画面の配置イメージです。\n——プロジェクト：《魅魔莉莉姆想要升級♥》" } },
+  "images/work_UI3.jpg": {
+    en: { title: "UI Design 03", desc: "Game UI planning and design — this page shows the layout concept for the gacha screen, adapted for the foreign-language version.\n— Project: 《魅魔莉莉姆想要升級♥》" },
+    ja: { title: "UIデザイン03", desc: "ゲームUIの設計とデザイン。このページは外国語版に対応したガチャ画面の配置イメージです。\n——プロジェクト：《魅魔莉莉姆想要升級♥》" } },
+  "images/work_UI4.jpg": {
+    en: { title: "UI Design 04", desc: "Game UI planning and design for a private commission.\nThe UI, layout, icons and all in-game content were handled by me alone.\n\nThis project is a mini-game used in a study verifying the effect of a learning system with game-based incentives on learning outcomes; the research and screens were published in a formal academic paper.\n— Project: 《激勵式語言學習小遊戲》 (an incentive-based language-learning mini-game)" },
+    ja: { title: "UIデザイン04", desc: "個人依頼によるゲームUIの設計とデザイン。\nUI、レイアウト、アイコン、ゲーム内のコンテンツすべてを一人で担当しました。\n\n本プロジェクトは「ゲーム的なインセンティブを持つ学習システムが学習成果に与える効果」を検証する研究で使われたミニゲームで、研究内容と画面デザインは正式な学術論文に掲載されています。\n——プロジェクト：《激勵式語言學習小遊戲》（インセンティブ型の語学学習ミニゲーム）" } },
+  "images/work_UI5.jpg": {
+    en: { title: "Editorial Layout Design", desc: "Layout and editorial design for a printed periodical, including handling the print orders. Three issues in total, each with five main sections plus other information pages; the image shows one of the pages." },
+    ja: { title: "誌面レイアウトデザイン", desc: "冊子（定期刊行物）の誌面レイアウトと印刷発注まで担当しました。全3号、各号5つの大きなコーナーとその他の情報ページで構成されています。画像はそのうちの1ページです。" } },
+  "images/card1.jpg": {
+    en: { title: "Have a nice day!", desc: "A theme-park-styled greeting card designed for an exhibition event that my original IP took part in.\nFeaturing Bingmiao (餅喵), Caowa (草蛙), Milk Cat (牛奶貓) and the squirrel Cangcang (倉倉).\n\n— “Namilkcat Planet”" },
+    ja: { title: "Have a nice day!", desc: "オリジナルIPで参加した展示イベントのために、遊園地をテーマにして制作したグリーティングカード。\n餅喵、草蛙、牛奶貓、そしてリスの倉倉が登場します。\n\n——『Namilkcat プラネット』" } },
+  "images/card2.jpg": {
+    en: { title: "Happy New Year", desc: "A greeting card for the Year of the Dragon featuring my original IP.\nBesides the usual little animals, Caowa joins in dressed as a lion-dance performer.\n\n— “Namilkcat Planet”" },
+    ja: { title: "新年あけましておめでとうございます", desc: "オリジナルIPによる辰年の年賀状。\nいつもの動物たちに加え、草蛙が獅子舞に扮して参加しています。\n\n——『Namilkcat プラネット』" } },
+  "images/card3.jpg": {
+    en: { title: "Peace and Good Fortune", desc: "New Year couplet (chunlian) designs!\nThe entire image was made with vector illustration.\n\n— “Namilkcat Planet”" },
+    ja: { title: "平安如意", desc: "新年の春聯（しゅんれん）のデザインです！\n全体をベクターイラストで制作しました。\n\n——『Namilkcat プラネット』" } },
+  "images/card4.jpg": {
+    en: { title: "Happy Valentine's Day", desc: "Valentine's Day illustration.\nThe Namilkcat handmade chocolate factory is rushing out tasty chocolates for all our friends — whether you have a sweetheart or not.\n\n— “Namilkcat Planet”" },
+    ja: { title: "ハッピーバレンタイン", desc: "バレンタインのイラスト。\nNamilkcat 手作りチョコレート工場では、恋人がいる人もいない人も、すべての友だちのために急いでおいしいチョコを作っています。\n\n——『Namilkcat プラネット』" } },
+  "images/card5.jpg": {
+    en: { title: "Dragon Boat Festival", desc: "Dragon Boat Festival greeting art.\nI highly recommend zongzi with salted egg yolk and peanuts!\n\n— “Namilkcat Planet”" },
+    ja: { title: "端午の節句のご挨拶", desc: "端午節のご挨拶イラスト。\n塩漬け卵黄とピーナッツ入りのちまき（粽）は本当におすすめです！\n\n——『Namilkcat プラネット』" } },
+  "images/card6.jpg": {
+    en: { title: "Trick or Treat", desc: "Halloween greeting art!\nThe best part of Halloween is Trick or Treat — before we grow up into adults who have to hand out the candy.\n\n— “Namilkcat Planet”" },
+    ja: { title: "トリック・オア・トリート", desc: "ハロウィンのイラスト！\nハロウィンの醍醐味はやっぱりトリック・オア・トリート！お菓子をあげる側の大人になる前に。\n\n——『Namilkcat プラネット』" } },
+  "images/card7.jpg": {
+    en: { title: "HALLOWEEN", desc: "HALLOWEEN!\nLet's dress up together and make Halloween fun instead of scary!\n\n— “Namilkcat Planet”" },
+    ja: { title: "HALLOWEEN", desc: "ハロウィン！\nみんなで仮装して、怖いより楽しいハロウィンにしよう〜！\n\n——『Namilkcat プラネット』" } },
+  "images/card8.jpg": {
+    en: { title: "Merry Christmas", desc: "Busy little animals on Christmas Eve!\nThey're working hard to deliver the gifts into everyone's stockings before dawn.\n\n— “Namilkcat Planet”" },
+    ja: { title: "メリークリスマス", desc: "クリスマスイブの夜に大忙しの動物たち！\n夜明け前にみんなの靴下へプレゼントを届けようと頑張っています。\n\n——『Namilkcat プラネット』" } },
+  "images/card9.jpg": {
+    en: { title: "Christmas Eve", desc: "Happy Christmas Eve~\nCaowa and Bingmiao wish everyone a peaceful Christmas Eve and a Merry Christmas!\n\n— “Namilkcat Planet”" },
+    ja: { title: "Christmas Eve", desc: "素敵なイブの夜を〜\n草蛙と餅喵から、みなさんの平安なイブとメリークリスマスをお祈りします！\n\n——『Namilkcat プラネット』" } },
+  "images/output1.jpg": {
+    en: { title: "Making Physical Merchandise", desc: "From the initial wish to bring my own products to life, to finally completing them and delivering them into the hands of people who love these characters!\nPillows, postcards and keychains.\n\n— “Namilkcat Planet”" },
+    ja: { title: "実体グッズの制作", desc: "自分のグッズを形にしたいという思いから始まり、無事に完成して、キャラクターを好きな人の手に届けることができました！\nクッション、ポストカード、キーホルダー。\n\n——『Namilkcat プラネット』" } },
+  "images/output2.jpg": {
+    en: { title: "Making Physical Merchandise 2", desc: "Producing physical badges and keychains!\n\n— “Namilkcat Planet”" },
+    ja: { title: "実体グッズの制作2", desc: "バッジとキーホルダーを制作しました！\n\n——『Namilkcat プラネット』" } }
+};
+let currentLang = 'zh';
+
+const grid = document.getElementById('worksGrid');
+let currentList = [];
+let currentIndex = 0;
+
+let currentFilter = 'all';
+let slides = [];   // 燈箱用：每張圖一格（一件作品可以有多張圖）
+
+function imagesOf(w){ return w.images || [ { src: w.src } ]; }
+function textOf(w){
+  const base = { title: w.title, desc: w.desc, tagLabel: w.tagLabel, notes: imagesOf(w).map(im => im.note || '') };
+  if(currentLang === 'zh') return base;
+  const t = (WORKS_I18N[imagesOf(w)[0].src] || {})[currentLang] || {};
+  const tag = (TAG_I18N[currentLang] || {})[w.tagLabel] || w.tagLabel;
+  return { title: t.title || w.title, desc: (t.desc !== undefined ? t.desc : w.desc), tagLabel: tag, notes: t.notes || base.notes };
+}
+
+function render(filter){
+  currentFilter = filter;
+  grid.innerHTML = "";
+  currentList = works.filter(w => filter === "all" || w.tag === filter);
+  slides = [];
+  currentList.forEach((w) => {
+    const imgs = imagesOf(w);
+    const t = textOf(w);
+    const startIndex = slides.length;
+    imgs.forEach((im, k) => slides.push({ w, src: im.src, k, n: imgs.length }));
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="frame">
+        <img src="${imgs[0].src}" alt="${t.title}" loading="lazy"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="placeholder" style="display:none; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+          <b>${t.title}</b>
+          找不到圖片<br>請確認 ${imgs[0].src} 是否存在
+        </div>
+        ${imgs.length > 1 ? `<div class="multi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>${imgs.length}</div>` : ''}
+      </div>
+      <div class="cap">
+        <h3>${t.title}</h3>
+        <span>${t.tagLabel}</span>
+      </div>
+    `;
+    card.addEventListener('click', () => openLightbox(startIndex));
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('filterRow').addEventListener('click', (e) => {
+  if(!e.target.classList.contains('filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  render(e.target.dataset.filter);
+});
+
+render('all');
+
+/* lightbox */
+const lightbox = document.getElementById('lightbox');
+const lbImgWrap = document.querySelector('.lightbox-img');
+const lbImgEl = document.getElementById('lbImg');
+const lbInfoEl = document.querySelector('.lightbox-info');
+let lbScale = 1;
+let lbPanX = 0, lbPanY = 0;
+let lbDragging = false, lbDragStartX = 0, lbDragStartY = 0, lbPanStartX = 0, lbPanStartY = 0;
+const LB_MIN = 1, LB_MAX = 2;
+/* 瀏覽器將大圖大幅縮小顯示時，邊緣取樣常會殘留一條極細的淺色描邊（downscale 的常見瑕疵）。
+   讓圖片本身固定「過掃描」放大約 1.5%，用父層 overflow:hidden 把這條邊裁掉，肉眼完全看不出被放大。 */
+const LB_OVERSCAN = 1.015;
+
+function applyLbTransform(){
+  const effectiveScale = lbScale * LB_OVERSCAN;
+  lbImgEl.style.transform = `translate(${lbPanX}px, ${lbPanY}px) scale(${effectiveScale})`;
+}
+
+function clampLbPan(){
+  // 限制拖曳範圍，避免圖片被拖出視野太多
+  const wrapRect = lbImgWrap.getBoundingClientRect();
+  const maxX = (wrapRect.width * (lbScale * LB_OVERSCAN - 1)) / 2;
+  const maxY = (wrapRect.height * (lbScale * LB_OVERSCAN - 1)) / 2;
+  lbPanX = Math.max(-maxX, Math.min(maxX, lbPanX));
+  lbPanY = Math.max(-maxY, Math.min(maxY, lbPanY));
+}
+
+function resetZoom(){
+  lbScale = 1;
+  lbPanX = 0;
+  lbPanY = 0;
+  lbImgWrap.classList.remove('zoomed', 'dragging');
+  applyLbTransform();
+}
+
+/* 依照圖片實際寬高比計算燈箱尺寸，讓直式構圖上下貼合、橫式構圖左右貼合，不出現多餘留白
+   寬高都四捨五入成整數像素後再套用，避免瀏覽器內部再次取捨產生誤差 */
+function layoutLightbox(){
+  if(!lbImgEl.naturalWidth || !lbImgEl.naturalHeight) return;
+  const natW = lbImgEl.naturalWidth, natH = lbImgEl.naturalHeight;
+  const isMobile = window.innerWidth <= 760;
+
+  if(isMobile){
+    lbInfoEl.style.width = '';
+    lbInfoEl.style.height = '';
+    const maxW = window.innerWidth * 0.92;
+    const maxH = window.innerHeight * 0.5;
+    let w = maxW, h = w * (natH / natW);
+    if(h > maxH){ h = maxH; w = h * (natW / natH); }
+    w = Math.round(w); h = Math.round(h);
+    lbImgWrap.style.width = w + 'px';
+    lbImgWrap.style.height = h + 'px';
+    positionLbNav(h);
+    return;
+  }
+
+  const maxModalW = Math.min(window.innerWidth * 0.92, window.innerWidth - 160); // 左右留空間給箭頭
+  const maxModalH = window.innerHeight * 0.86;
+  const infoW = Math.round(Math.max(260, Math.min(380, maxModalW * 0.28)));
+  const availImgW = maxModalW - infoW;
+
+  const scale = Math.min(maxModalH / natH, availImgW / natW);
+  const w = Math.round(natW * scale);
+  const h = Math.round(natH * scale);
+
+  lbImgWrap.style.width = w + 'px';
+  lbImgWrap.style.height = h + 'px';
+  lbInfoEl.style.width = infoW + 'px';
+  lbInfoEl.style.height = h + 'px';
+  positionLbNav(h);
+}
+
+function positionLbNav(imgH){
+  // 箭頭固定在圖片區塊的垂直中央（手機版圖片在上、文字在下）
+  document.querySelectorAll('.lightbox-nav').forEach(b => { b.style.top = (imgH / 2) + 'px'; });
+}
+lbImgEl.addEventListener('load', layoutLightbox);
+window.addEventListener('resize', () => { if(lightbox.classList.contains('open')) layoutLightbox(); });
+
+function showLightbox(i){
+  const n = slides.length;
+  if(!n) return;
+  currentIndex = (i + n) % n; // 首尾相接循環翻頁
+  const sl = slides[currentIndex];
+  const t = textOf(sl.w);
+  lbImgEl.src = sl.src;
+  lbImgEl.alt = t.title;
+  document.getElementById('lbTitle').textContent = t.title;
+  const part = sl.n > 1 ? ' ・ ' + (t.notes[sl.k] ? t.notes[sl.k] + ' ' : '') + (sl.k + 1) + '/' + sl.n : '';
+  document.getElementById('lbTag').textContent = t.tagLabel + part;
+  document.getElementById('lbDesc').textContent = t.desc;
+  resetZoom();
+  const multi = n > 1;
+  document.getElementById('lbPrev').hidden = !multi;
+  document.getElementById('lbNext').hidden = !multi;
+  if(lbImgEl.complete && lbImgEl.naturalWidth){ layoutLightbox(); }
+  // 預載前後一張，翻頁更順
+  if(multi){
+    [slides[(currentIndex + 1) % n], slides[(currentIndex - 1 + n) % n]]
+      .forEach(x => { const im = new Image(); im.src = x.src; });
+  }
+}
+function openLightbox(i){
+  lightbox.classList.add('open');
+  showLightbox(i);
+}
+function closeLightbox(){ lightbox.classList.remove('open'); }
+document.getElementById('lbPrev').addEventListener('click', (e) => { e.stopPropagation(); showLightbox(currentIndex - 1); });
+document.getElementById('lbNext').addEventListener('click', (e) => { e.stopPropagation(); showLightbox(currentIndex + 1); });
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  else if(e.key === 'ArrowLeft') showLightbox(currentIndex - 1);
+  else if(e.key === 'ArrowRight') showLightbox(currentIndex + 1);
+});
+
+/* 滾輪縮放：往上滾放大細節（最高2倍），往下滾縮小，最小回到原始顯示尺寸 */
+lbImgWrap.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const step = 0.15;
+  lbScale = e.deltaY < 0 ? Math.min(LB_MAX, lbScale + step) : Math.max(LB_MIN, lbScale - step);
+  if(lbScale <= 1){ lbScale = 1; lbPanX = 0; lbPanY = 0; lbImgWrap.classList.remove('zoomed'); }
+  else{ lbImgWrap.classList.add('zoomed'); clampLbPan(); }
+  applyLbTransform();
+}, { passive:false });
+
+/* 放大後可按住拖曳移動圖片，查看畫面各處的細節 */
+lbImgWrap.addEventListener('mousedown', (e) => {
+  if(lbScale <= 1) return;
+  lbDragging = true;
+  lbImgWrap.classList.add('dragging');
+  lbDragStartX = e.clientX;
+  lbDragStartY = e.clientY;
+  lbPanStartX = lbPanX;
+  lbPanStartY = lbPanY;
+  e.preventDefault();
+});
+window.addEventListener('mousemove', (e) => {
+  if(!lbDragging) return;
+  lbPanX = lbPanStartX + (e.clientX - lbDragStartX);
+  lbPanY = lbPanStartY + (e.clientY - lbDragStartY);
+  clampLbPan();
+  applyLbTransform();
+});
+window.addEventListener('mouseup', () => {
+  if(!lbDragging) return;
+  lbDragging = false;
+  lbImgWrap.classList.remove('dragging');
+});
+
+/* active nav highlight on scroll */
+const sections = document.querySelectorAll('main section[id]');
+const navLinks = document.querySelectorAll('nav.mainnav a');
+window.addEventListener('scroll', () => {
+  let current = sections[0].id;
+  sections.forEach(sec => {
+    if(window.scrollY >= sec.offsetTop - 200) current = sec.id;
+  });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+
+/* ---------- 語言切換 ---------- */
+const LANG_HTML = { zh:'zh-Hant', en:'en', ja:'ja' };
+document.querySelectorAll('[data-i18n]').forEach(el => { el.dataset.zh = el.innerHTML; }); // 先記住中文原文
+const zhTitle = document.title;
+
+function applyLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = LANG_HTML[lang] || 'zh-Hant';
+  document.title = lang === 'zh' ? zhTitle : I18N[lang].pageTitle;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = lang === 'zh' ? undefined : I18N[lang][el.dataset.i18n];
+    el.innerHTML = (v !== undefined) ? v : el.dataset.zh;
+  });
+  document.querySelectorAll('.lang-switch button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  render(currentFilter);              // 作品卡片改用對應語言
+  if(lightbox.classList.contains('open')) showLightbox(currentIndex);
+  try{ localStorage.setItem('lang', lang); }catch(e){}
+}
+document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+
+function initLang(){
+  let lang = null;
+  try{ lang = localStorage.getItem('lang'); }catch(e){}
+  if(!lang){
+    const nav = (navigator.language || 'zh').toLowerCase();
+    lang = nav.startsWith('zh') ? 'zh' : nav.startsWith('ja') ? 'ja' : 'en'; // 其他語系的訪客預設看英文
+  }
+  if(lang !== 'zh') applyLang(lang);
+}
+initLang();
+
+/* ---------- 手機版選單 ---------- */
+const sidebarEl = document.querySelector('.sidebar');
+const menuToggle = document.getElementById('menuToggle');
+function setMenu(open){
+  sidebarEl.classList.toggle('menu-open', open);
+  menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+menuToggle.addEventListener('click', () => setMenu(!sidebarEl.classList.contains('menu-open')));
+document.querySelectorAll('nav.mainnav a, .sidebar-foot .socials a[href^="#"]').forEach(a => a.addEventListener('click', () => setMenu(false)));
+window.addEventListener('resize', () => { if(window.innerWidth > 760) setMenu(false); });
+</script>
+
+</body>
+</html>
